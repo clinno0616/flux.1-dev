@@ -186,7 +186,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Add title and description
-#st.title("FLUX.1-dev")
 st.markdown("<p class='custom-title'>black-forest-labs/FLUX.1-dev</p>", unsafe_allow_html=True)
 
 # Function to scan for LORA files
@@ -237,8 +236,6 @@ optimization_mode = st.sidebar.radio(
     help="Memory Efficient mode uses less VRAM but might be slower"
 )
 
-
-
 max_dim = 2048
 col1, col2 = st.columns(2)
 # Input for prompt
@@ -273,13 +270,7 @@ num_inference_steps = st.sidebar.slider("Number of Inference Steps",
                                       min_value=1, 
                                       max_value=100, 
                                       value=default_steps)
-
-#max_sequence_length = st.sidebar.number_input("Max Sequence Length",
-#                                            min_value=64,
-#                                            max_value=512,
-#                                            value=256)
 max_sequence_length = 256
-
 # Function to update seed
 def update_seed():
     new_seed = torch.randint(0, 2**32 - 1, (1,)).item()
@@ -405,21 +396,7 @@ if st.button("Generate Image"):
                 st.plotly_chart(gpu_fig, use_container_width=True)
             with col2:
                 st.plotly_chart(vram_fig, use_container_width=True)
-            #col1, col2 = st.sidebar.columns([1, 1])
-            #with col1:
-            #    st.plotly_chart(disk_fig, use_container_width=True)
-            #with col2:
-            #    st.plotly_chart(disk_io_fig, use_container_width=True)
-            # Display current disk information
-            #disk = psutil.disk_usage('/')
-            #st.sidebar.markdown(f"""
-            #### Disk Information
-            #- Total: {disk.total / (1024**3):.1f} GB
-            # Used: {disk.used / (1024**3):.1f} GB
-            #- Free: {disk.free / (1024**3):.1f} GB
-            #- Usage: {disk.percent}%
-            #""")
-                
+               
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
         st.error("Try using Memory Efficient mode or reducing image dimensions if you're experiencing memory issues.")
